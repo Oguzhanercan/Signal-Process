@@ -1,5 +1,4 @@
-'''Bilgisayar Mühendisleri için Sinyaller ve Sistemler 2020 güz dönemi Ödev 1 :
-1 boyutlu sinyallerde konvolüsyon fonksiyonunun uygulanması'''
+'''Signals and System for Computer Scientist Homework 1'''
 import numpy as np #
 import matplotlib.pyplot as plt
 
@@ -17,15 +16,14 @@ x = inputarray(lenx)
 print(f"Enter the values of array h : \n")
 h = inputarray(lenh)
 
-def padding_zero(array,padsize):#İşlem yaparken başta ve
-#sonda boyutların denk gelmesini sağlayacak. 0 değeri verdiğimiz için sonuçta değişiklik olmayacak.
+def padding_zero(array,padsize):#padding
     for i in range(padsize):
         array.insert(i,0)
     for i in range(padsize):
         array.append(0)
     return array
 
-def reverse(array,length):# Arrayi ters çevirecek.
+def reverse(array,length):# Reverse array
     for i in range(int(len(array)/2)):
         temp = array[i]
         array[i] = array[length-i-1]
@@ -33,12 +31,12 @@ def reverse(array,length):# Arrayi ters çevirecek.
     return array
 
 
-def conv1d(x,h,lenx,lenh): # 1 boyutta konvolüsyon almamızı sağlayacak.
-    conved = [] #Konvolüsyon işlemi sonucu değerlerimizi depolayacağız.
-    lenconved = lenh+lenx-1 #conved arrayinin uzunluğu
+def conv1d(x,h,lenx,lenh): # 1 dimensional convolution
+    conved = []
+    lenconved = lenh+lenx-1
     if (lenx >= lenh):
-        a = x[:] #x ve h fonksiyonlarının değerlerini a ve b arraylerine atıyoruz.
-        b = h[:] #Padding ve reverse fonksiyonlarındaki değişikliklerden etkilenmeyecekler.
+        a = x[:]
+        b = h[:]
         a = padding_zero(a, lenh - 1)
         b = reverse(b, lenh)
     elif (lenh > lenx):
@@ -55,7 +53,7 @@ def conv1d(x,h,lenx,lenh): # 1 boyutta konvolüsyon almamızı sağlayacak.
 conved = conv1d(x,h,lenx,lenh)
 print(conved)
 
-#Görselleştirme
+#Visualization
 t1 = np.arange(index_x,index_x+lenx,1)
 t2 = np.arange(index_h,index_h+lenh,1)
 t3 = np.arange(index_x,index_x+len(conved),1)
